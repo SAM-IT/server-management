@@ -4,8 +4,23 @@ define('YII_DEBUG', true);
 define('YII_TRACE_LEVEL', 3);
 call_user_func(function() {
 
-    $loader = require "vendor/autoload.php";
-//    var_dump($loader); die();
+    // Locate autoload.php.
+    $dir = __DIR__;
+    while ($dir != '/') {
+        if (file_exists($dir . "/vendor/autoload.php")) {
+            $path = $dir . "/vendor/autoload.php";
+            break;
+        }
+        if ($dir != __DIR__ && file_exists('composer.json')) {
+            // Should check composer.json for vendor directory.
+        }
+        $dir = dirname($dir);
+    }
+    if (!isset($path)) {
+        die("Could not locate autoloader.");
+    }
+    $loader = require $path;
+
 
 
     class Yii extends \yii\BaseYii {
@@ -22,8 +37,3 @@ call_user_func(function() {
     (new \yii\console\Application($config))->run();
 
 });
-
-
-
-
-
