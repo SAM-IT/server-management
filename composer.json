@@ -1,0 +1,20 @@
+{
+    "name": "sam-it/server-management",
+    "description": "Server management scripts",
+    "license": "proprietary",
+    "authors": [
+        {
+            "name": "Sam Mousa",
+            "email": "sam@mousa.nl"
+        }
+    ],
+    "autoload" : {
+        "psr-4" : {
+            "app\\" : ["protected/"]
+        }
+    },
+    "require": {
+        "yiisoft/yii2": "^2.0"
+    },
+    "bin" : ["/manage"]
+}
