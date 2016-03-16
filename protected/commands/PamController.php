@@ -7,7 +7,7 @@ use yii\helpers\Console;
 class PamController extends Controller
 {
     public $color = true;
-    
+
     public $file = '/etc/security/access-known-ips.conf';
     /**
      * Prevents adding an entry if this file does not exist.
@@ -32,10 +32,16 @@ class PamController extends Controller
             }
             list($access, $timestamp) = explode('#time=', $line);
             if ($time - $timestamp > 24 * 3600) {
-                echo "Removing line: $line, expired.\n";
+                $this->stdout("Removing line: $line, expired.\n", Console::FG_CYAN);
                 continue;
             } else {
-                echo "Keeping: $line.\n";
+
+                list($allow, $user, $ip) = explode(':', $access);
+                if (trim($user) === getenv('PAM_USER') && trim($ip) === getenv('PAM_RHOST')) {
+                    $this->stdout("Keeping line: $line. This should allow you access without OTP\n", Console::FG_GREEN);
+                } else {
+                    $this->stdout("Keeping line: $line.\n", Console::FG_CYAN);
+                }
                 $result[] = $line;
             }
 
