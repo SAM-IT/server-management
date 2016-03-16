@@ -45,11 +45,6 @@ class PamController extends Controller
      */
     public function actionAdd()
     {
-        // Only add new line if a token was entered.
-        if (strlen(fread(STDIN, 6)) < 6) {
-            return;
-        }
-
         $lines = file_exists($this->file) ? file($this->file, FILE_SKIP_EMPTY_LINES + FILE_IGNORE_NEW_LINES) : [];
         // Add the new IP.
         $user = getenv('PAM_USER');
