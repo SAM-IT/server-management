@@ -2,7 +2,6 @@
 
 namespace app\commands;
 
-use yii\console\Controller;
 use yii\helpers\Console;
 
 class UsersController extends Controller
@@ -24,4 +23,25 @@ class UsersController extends Controller
     public function actionIndex() {
         $this->stdout("Ok\n", Console::FG_RED);
     }
+
+    public function actionEnsure($name)
+    {
+        $options = [
+            'home' => null,
+            'shell' => null,
+            'disabled-password' => true,
+            $name
+        ];
+
+
+        $this->exec('adduser', $options, ['/already exists/']);
+
+    }
+
+    public function actionEnsureGroup($group)
+    {
+        $this->actionEnsure("--group $group");
+    }
+
+
 }
