@@ -6,6 +6,8 @@ use yii\helpers\Console;
 
 class PamController extends Controller
 {
+    public $color = true;
+    
     public $file = '/etc/security/access-known-ips.conf';
     /**
      * Prevents adding an entry if this file does not exist.
