@@ -52,6 +52,7 @@ class PamController extends Controller
         if (!empty($user)) {
             $time = time();
             echo "Adding: $user @ $ip\n";
+            passthru('env');
             array_unshift($lines, "+ : $user : $ip #time=$time");
             if (file_exists($this->file) || !empty($lines)) {
                 file_put_contents($this->file, implode("\n", $lines) . "\n");
