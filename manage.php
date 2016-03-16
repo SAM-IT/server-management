@@ -2,7 +2,7 @@
 
 define('YII_DEBUG', true);
 define('YII_TRACE_LEVEL', 3);
-chdir(__FILE___);
+chdir(__FILE__);
 call_user_func(function() {
 
     // Locate autoload.php.
