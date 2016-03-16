@@ -36,8 +36,8 @@ class PamController extends Controller
                 continue;
             } else {
 
-                list($allow, $user, $ip) = explode(':', $access);
-                if (trim($user) === getenv('PAM_USER') && trim($ip) === getenv('PAM_RHOST')) {
+                list($allow, $user, $ip) = array_map('trim', explode(':', $access));
+                if ($user === getenv('PAM_USER') && $ip === getenv('PAM_RHOST')) {
                     $this->stdout("Keeping line: $user @ $ip. This should allow you access without OTP\n", Console::FG_GREEN);
                 } else {
                     $this->stdout("Keeping line: $user @ $ip.\n", Console::FG_CYAN);
