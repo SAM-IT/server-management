@@ -51,11 +51,13 @@ class PamController extends Controller
         $ip = getenv('PAM_RHOST');
         if (!empty($user)) {
             $time = time();
+            echo "Adding: $user @ $ip\n";
             array_unshift($lines, "+ : $user : $ip #time=$time");
             if (file_exists($this->file) || !empty($lines)) {
                 file_put_contents($this->file, implode("\n", $lines) . "\n");
             }
         }
+
     }
 
     public function options($actionID)
